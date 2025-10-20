@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Happy Shirou Day!</title>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      background: url('shirou_background_shirouday.jpg') center center fixed;
+      background-size: cover;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 4em;
+      color: white;
+      margin-top: 40px;
+      text-shadow: 2px 2px 8px black;
+    }
+
+    #swordButton, #musicButton {
+      display: block;
+      margin: 40px auto;
+      padding: 20px 60px;
+      font-size: 2em;
+      border: none;
+      border-radius: 15px;
+      color: white;
+      cursor: pointer;
+      box-shadow: 0 0 10px black;
+      transition: transform 0.2s;
+    }
+
+    #swordButton {
+      background-color: crimson;
+    }
+
+    #musicButton {
+      background-color: darkblue;
+    }
+
+    #swordButton:hover, #musicButton:hover {
+      transform: scale(1.1);
+    }
+
+    .sword {
+      position: absolute;
+      width: 150px;
+      pointer-events: none;
+      transform-origin: center;
+    }
+  </style>
+</head>
+<body>
+  <audio id="bgMusic" src="shirou_theme_shirouday.mp3" loop></audio>
+  <audio id="swordSound" src="sword_sfx_shirouday.mp3"></audio> 
+
+  <h1>Happy Shirou Day!</h1>
+  <button id="swordButton">swords</button>
+  <button id="musicButton">play swords music</button>
+
+  <script>
+    const musicButton = document.getElementById('musicButton');
+    const music = document.getElementById('bgMusic');
+
+    musicButton.addEventListener('click', () => {
+      if (music.paused) {
+        music.play();
+        musicButton.textContent = 'pause swords music';
+      } else {
+        music.pause();
+        musicButton.textContent = 'play swords music';
+      }
+    });
+
+    const button = document.getElementById('swordButton');
+    const body = document.body;
+    const swordSound = document.getElementById('swordSound');
+
+    button.addEventListener('click', () => {
+      swordSound.currentTime = 0;
+      swordSound.play();
+
+      const sword = document.createElement('img');
+      sword.src = 'swords_shirouday.png'; 
+      sword.className = 'sword';
+
+      const x = Math.random() * (window.innerWidth - 150);
+      const y = Math.random() * (window.innerHeight - 150);
+      const rotation = Math.random() * 360;
+
+      sword.style.left = `${x}px`;
+      sword.style.top = `${y}px`;
+      sword.style.transform = `rotate(${rotation}deg)`;
+
+      body.appendChild(sword);
+    });
+  </script>
+</body>
+</html>
